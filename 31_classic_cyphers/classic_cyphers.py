@@ -5,7 +5,7 @@ text = input("> ").lower()
 def caesar_shift(text, shift):
     while shift > 26:
         shift -= 26
-    while shift < 1:
+    while shift < 0:
         shift += 26
 
     result = ""
@@ -14,20 +14,37 @@ def caesar_shift(text, shift):
             newletter = ord(char) + shift
             if newletter > 122:
                 newletter -= 26
-            result += chr(ord(char) + shift)
+            result += chr(newletter)
         else:
             result += char
     return result
 
-def vigenere_cypher(text, encryption_text):
-    while encryption_text < text:
+def vigenere_encode(text, encryption_text):
+    while len(encryption_text) < len(text):
         encryption_text += encryption_text * 2
     result = ""
     for i in range(len(text)):
         if ord(text[i]) >= 97 and ord(text[i]) <= 122:
-            result += chr(ord(char) + ord(encryption_text[i])
+            newletter = ord(text[i]) + ord(encryption_text[i]) - 97
+            if newletter > 122:
+                newletter -= 26
+            result += chr(newletter)
         else:
-            result += char
+            result += text[i]
+    return result
+
+def vigenere_decode(cypher, enc_text):
+    while len(enc_text) < len(cypher):
+        enc_text += enc_text * 2
+    result = ""
+    for i in range(len(text)):
+        if ord(cypher[i]) >= 97 and ord(cypher[i]) <= 122:
+            newletter = ord(cypher[i]) - ord(enc_text[i]) + 97
+            if newletter < 97:
+                newletter += 26
+            result += chr(newletter)
+        else:
+            result += cypher[i]
     return result
 
 print("First, caesar.")
@@ -38,5 +55,7 @@ print(caesar)
 print("Next, vigenere.")
 print("please enter a text to encrypt the string. the longer the better.")
 encryption_text = input("> ").lower()
-vigenere = vigenere_cypher(text, encryption_text)
+vigenere = vigenere_encode(text, encryption_text)
 print(vigenere)
+old_text = vigenere_decode(vigenere, encryption_text)
+print(old_text)
