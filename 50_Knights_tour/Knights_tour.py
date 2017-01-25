@@ -44,6 +44,9 @@ def get_next_possible_fields(matrix, x, y, depth):
 while check_done(matrix) == False:
     print("X:", x, "Y:", y)
     next_moves = get_next_possible_fields(matrix, x, y, 1)
+    if next_moves == []:
+        print("Something went wrong, no possible moves left!")
+        quit
     next_moves.sort()
     x = next_moves[0][1]
     y = next_moves[0][2]
