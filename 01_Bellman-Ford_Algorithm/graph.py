@@ -1,9 +1,16 @@
-graph = {'A': [['B', 10], ['C', 20]],
-         'B': [['E', 10], ['D', 50]],
-         'C': [['E', 33], ['D', 20]],
-         'D': [['E', -20], ['F', -2]],
-         'E': [['F', 1]],
-         'F': [[]]}
+#graph = {'A': [['B', 10], ['C', 20]],
+#         'B': [['E', 10], ['D', 50]],
+#         'C': [['E', 33], ['D', 20]],
+#         'D': [['E', -20], ['F', -2]],
+#         'E': [['F', 1]],
+#         'F': [[]]}
+
+graph = {'A': [['B', 5]],
+         'B': [['C', -2]],
+         'C': [['D', -2]],
+         'D': [['F', -2], ['E', 4]],
+         'E': [[]],
+         'F': [['B', 2]]}
 
 #Doesn't check for endless negative routes.
 
@@ -39,5 +46,15 @@ for i in range(len(graph)-1):
     if not changed:
         break
 
-for key, value in cost.items():
-    print("Point", key, "has the cost of", value)
+impossible = False
+for key, values in graph.items():
+    for value in values:
+        if value != [] and cost[key] != None:
+            if (cost[key] + value[1]) < cost[value[0]]:
+                impossible = True
+
+if impossible == False:
+    for key, value in cost.items():
+                    print("Point", key, "has the cost of", value)
+else:
+    print("This graph has an endless loop!")

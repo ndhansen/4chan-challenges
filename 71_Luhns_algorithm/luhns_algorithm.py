@@ -1,0 +1,17 @@
+accnumber = input("Please enter an account or credit card number: ")
+ccv = input("Please enter the CCV: ")
+expiration_date = input("Please input the expiration date: ")
+name = input("Please enter the account name: ")
+
+f = open("accounts.txt", "w")
+f.write(accnumber)
+f.write("\n")
+f.write(ccv)
+f.write("\n")
+f.write(expiration_date)
+f.write("\n")
+f.write(name)
+f.write("\n")
+f.close()
+
+print("Thanks!")
